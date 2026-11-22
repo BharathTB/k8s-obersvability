@@ -100,3 +100,18 @@ def register_routes(app):
         """Delete a task from GUI."""
         storage.delete_task(task_id)
         return redirect(url_for("index"))
+
+    @app.route("/ping")
+    def ping():
+        return {"status":"ok"}, 200
+
+    import random, time
+
+    @app.route("/slow")
+    def slow():
+        time.sleep(random.uniform(0.5, 2.0))
+        return {"status": "slow but ok"}, 200
+
+    @app.route("/fail")
+    def fail():
+        return {"error": "simulated failure"}, 500
